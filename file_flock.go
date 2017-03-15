@@ -28,7 +28,7 @@ func Open(filename string, level LockLevel) *File {
 }
 
 func (f *File) fileLock() {
-	fd := f.Fd()
+	fd := int(f.Fd())
 	if fd != -1 {
 		if err := syscall.Flock(fd, syscall.LOCK_EX); err != nil {
 			panic(err)
@@ -37,7 +37,7 @@ func (f *File) fileLock() {
 }
 
 func (f *File) fileUnlock() {
-	fd := f.Fd()
+	fd := int(f.Fd())
 	if fd != -1 {
 		if err := syscall.Flock(fd, syscall.LOCK_UN); err != nil {
 			panic(err)
@@ -46,7 +46,7 @@ func (f *File) fileUnlock() {
 }
 
 func (f *File) fileRLock() {
-	fd := f.Fd()
+	fd := int(f.Fd())
 	if fd != -1 {
 		if err := syscall.Flock(fd, syscall.LOCK_SH); err != nil {
 			panic(err)
@@ -55,7 +55,7 @@ func (f *File) fileRLock() {
 }
 
 func (f *File) fileRUnlock() {
-	fd := f.Fd()
+	fd := int(f.Fd())
 	if fd != -1 {
 		if err := syscall.Flock(fd, syscall.LOCK_UN); err != nil {
 			panic(err)
